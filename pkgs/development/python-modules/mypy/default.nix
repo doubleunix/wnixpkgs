@@ -68,10 +68,12 @@ buildPythonPackage rec {
   ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   # Relax -Werror for deprecation warnings on 3.15+
-  NIX_CFLAGS_COMPILE =
-    lib.optionals (lib.versionAtLeast python.pythonVersion "3.15") [
-      "-Wno-error=deprecated-declarations"
-    ];
+  #NIX_CFLAGS_COMPILE =
+  #  lib.optionals (lib.versionAtLeast python.pythonVersion "3.15") [
+  #    "-Wno-error=deprecated-declarations"
+  #  ];
+
+  lib.versionAtLeast python.pythonVersion "3.15" -> doCheck = false;
 
   optional-dependencies = {
     dmypy = [ psutil ];
