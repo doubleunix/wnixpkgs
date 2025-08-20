@@ -5,7 +5,7 @@ let
     oldName:
     { path, package }:
     # lib.warn "cudaPackages.${oldName} is deprecated, use ${path} instead" package;
-    "nothing to see here"
+    "nothing to see here";
 in
 final: _:
 builtins.mapAttrs mkRenamed {
