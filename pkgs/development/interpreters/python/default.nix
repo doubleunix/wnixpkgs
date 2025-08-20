@@ -102,6 +102,7 @@
     python315 = (callPackage ./cpython {
       self = __splicedPackages.python315;
       sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
+      pythonVersion = "3.15";
       hash = lib.fakeHash;
       inherit passthruFun;
       }).overrideAttrs (old: rec {
