@@ -97,6 +97,19 @@
       hash = "sha256-vGKFTPIyNFvSLJCRpoRk4B4FbGRzo//6hFcsijQtplY=";
       inherit passthruFun;
     };
+
+    python315 = callPackage ./cpython {
+      self = __splicedPackages.python315;
+      sourceVersion = {
+        major = "3";
+        minor = "15";
+        patch = "0";
+        suffix = "a0";
+      };
+      hash = "sha256-nqekA8kXbs8d1ZeyjaqpLU9KhRNsfiYrqy/jJR6xVM8=";
+      inherit passthruFun;
+    };
+
     # Minimal versions of Python (built without optional dependencies)
     python3Minimal =
       (callPackage ./cpython (

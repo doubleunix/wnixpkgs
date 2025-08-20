@@ -117,6 +117,7 @@ rec {
   isPy312 = pythonVersion == "3.12";
   isPy313 = pythonVersion == "3.13";
   isPy314 = pythonVersion == "3.14";
+  isPy315 = pythonVersion == "3.15";
   isPy2 = lib.strings.substring 0 1 pythonVersion == "2";
   isPy3 = lib.strings.substring 0 1 pythonVersion == "3";
   isPy3k = isPy3;

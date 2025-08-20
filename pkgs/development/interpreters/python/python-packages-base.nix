@@ -128,6 +128,7 @@ in
     isPy312
     isPy313
     isPy314
+    isPy315
     isPy3k
     isPyPy
     pythonAtLeast
