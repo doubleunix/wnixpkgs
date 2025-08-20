@@ -33,6 +33,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
+  postPatch = ''
+    # Escape % in trait.help so argparse doesn't choke
+    sed -i \
+      -e 's/help=trait.help/help=(trait.help or "").replace("%","%%")/' \
+      -e 's/help_text=trait.help/help_text=(trait.help or "").replace("%","%%")/' \
+      traitlets/config/argcomplete_config.py
+  '';
+
   disabledTests = [
     # https://github.com/ipython/traitlets/issues/902
     "test_complete_custom_completers"
