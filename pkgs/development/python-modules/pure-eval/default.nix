@@ -2,6 +2,7 @@
   lib,
   buildPythonPackage,
   pythonOlder,
+  python,
   fetchFromGitHub,
   setuptools-scm,
   toml,
@@ -21,6 +22,8 @@ buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-gdP8/MkzTyjkZaWUG5PoaOtBqzbCXYNYBX2XBLWLh18=";
   };
+
+  doCheck = lib.versionOlder python.pythonVersion "3.15";
 
   build-system = [ setuptools-scm ];
 
