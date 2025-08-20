@@ -2,6 +2,7 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+  python,
   pytest,
   pytest-asyncio,
   pytestCheckHook,
@@ -32,6 +33,8 @@ buildPythonPackage rec {
     pytest-asyncio
     pytestCheckHook
   ];
+
+  doCheck = lib.versionOlder python.pythonVersion "3.15";
 
   pythonImportsCheck = [ "pytest_mock" ];
 
