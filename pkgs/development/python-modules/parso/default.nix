@@ -1,7 +1,7 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
   pythonAtLeast,
   pythonOlder,
   pytestCheckHook,
@@ -13,15 +13,18 @@ buildPythonPackage rec {
   format = "setuptools";
   disabled = pythonOlder "3.6";
 
-  src = fetchPypi {
+  src = fetchFromGitHub {
     inherit pname version;
-    hash = "sha256-6zp7WCQPuZCZo0VXHe7MD5VA6l9N0v4UwqmdaygauS0=";
+    owner = "davidhalter";
+    repo = "parso";
+    rev = "a73af5c709a292cbb789bf6cab38b20559f166c0";
+    hash = "sha256-NNP/gKBA2tvCTV53k8VrnGEYruEsDSVqWVa7uU8Wznc=";
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-
   postPatch = ''
+    find
     cp parso/python/grammar314.txt parso/python/grammar315.txt
   '';
 
