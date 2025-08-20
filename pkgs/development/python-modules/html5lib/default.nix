@@ -37,14 +37,12 @@ buildPythonPackage rec {
   # latest release not compatible with pytest 6
   doCheck = false;
 
-  # NEW: make html5lib's setup.py 3.15-ast compatible
+  # Make setup.py Python 3.15 AST-compatible
   postPatch = ''
-    # Replace isinstance(..., ast.Str) with the 3.8+ equivalent
-    # In 3.15 the ast.Str alias is gone; strings are ast.Constant with str value
+    # In Python 3.15, ast.Str is gone; string literals are ast.Constant with .value
     substituteInPlace setup.py \
-      --replace \
-        "isinstance(a.value, ast.Str)" \
-        "isinstance(a.value, ast.Constant) and isinstance(a.value.value, str)"
+      --replace-warn "isinstance(a.value, ast.Str)" "isinstance(a.value, ast.Constant)" \
+      --replace-warn "a.value.s" "a.value.value"
   '';
 
   nativeCheckInputs = [
