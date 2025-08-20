@@ -42,6 +42,8 @@ buildPythonPackage rec {
     # In Python 3.15, ast.Str is gone; string literals are ast.Constant with .value
     substituteInPlace tests/test_asttokens.py \
       --replace-warn "isinstance(n, ast.Str)" "isinstance(n, ast.Constant)"
+    substituteInPlace tests/test_util.py \
+      --replace-warn "isinstance(n, ast.Str)" "isinstance(n, ast.Constant)"
   '';
 
   pythonImportsCheck = [ "asttokens" ];
