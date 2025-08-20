@@ -6,6 +6,7 @@
   lib,
   makeScopeWithSplicing',
   pythonPackagesExtensions,
+  fetchFromGitHub,
   stdenv,
 }@args:
 
@@ -98,17 +99,20 @@
       inherit passthruFun;
     };
 
-    python315 = callPackage ./cpython {
+    python315 = (callPackage ./cpython {
       self = __splicedPackages.python315;
-      sourceVersion = {
-        major = "3";
-        minor = "15";
-        patch = "0";
-        suffix = "";
-      };
-      hash = "sha256-nqekA8kXbs8d1ZeyjaqpLU9KhRNsfiYrqy/jJR6xVM8=";
+      sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
+      hash = lib.fakeHash;
       inherit passthruFun;
-    };
+      }).overrideAttrs (old: {
+        src = fetchFromGitHub {
+          owner = "python";
+          repo = "cpython";
+          rev = "7fda8b66debb24e0520b94c3769b648c7305f84e";
+          hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
+        };
+        # version = "3.15.0a0-wnix";
+      });
 
     # Minimal versions of Python (built without optional dependencies)
     python3Minimal =
