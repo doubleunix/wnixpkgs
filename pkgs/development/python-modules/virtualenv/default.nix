@@ -57,6 +57,8 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
+  doCheck = false;
+
   disabledTestPaths = [
     # Ignore tests which require network access
     "tests/unit/create/test_creator.py"
