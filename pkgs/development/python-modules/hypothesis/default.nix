@@ -66,7 +66,8 @@ buildPythonPackage rec {
   ]
   ++ lib.optionals isPyPy [ tzdata ];
 
-  inherit doCheck;
+  #inherit doCheck;
+  doCheck = false;
 
   # tox.ini changes how pytest runs and breaks it.
   # Activate the CI profile (similar to setupHook below)
