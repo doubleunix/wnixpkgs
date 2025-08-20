@@ -25,6 +25,13 @@ buildPythonPackage rec {
 
   doCheck = lib.versionOlder python.pythonVersion "3.15";
 
+  postPatch = ''
+		cat > pure_eval/my_getattr_static.py <<- 'PY'
+			from inspect import getattr_static  # use the stdlib implementation
+			__all__ = ["getattr_static"]
+		PY
+	'';
+
   build-system = [ setuptools-scm ];
 
   dependencies = [ toml ];
