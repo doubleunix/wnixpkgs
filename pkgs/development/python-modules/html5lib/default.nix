@@ -36,6 +36,17 @@ buildPythonPackage rec {
 
   # latest release not compatible with pytest 6
   doCheck = false;
+
+  # NEW: make html5lib's setup.py 3.15-ast compatible
+  postPatch = ''
+    # Replace isinstance(..., ast.Str) with the 3.8+ equivalent
+    # In 3.15 the ast.Str alias is gone; strings are ast.Constant with str value
+    substituteInPlace setup.py \
+      --replace \
+        "isinstance(a.value, ast.Str)" \
+        "isinstance(a.value, ast.Constant) and isinstance(a.value.value, str)"
+  '';
+
   nativeCheckInputs = [
     mock
     pytest-expect
