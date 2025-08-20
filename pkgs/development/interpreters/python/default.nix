@@ -104,13 +104,14 @@
       sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
       hash = lib.fakeHash;
       inherit passthruFun;
-      }).overrideAttrs (old: {
+      }).overrideAttrs (old: rec {
         src = fetchFromGitHub {
           owner = "python";
           repo = "cpython";
           rev = "7fda8b66debb24e0520b94c3769b648c7305f84e";
           hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
         };
+        passthru.doc.src = src;
         # version = "3.15.0a0-wnix";
       });
 
