@@ -73,7 +73,7 @@ buildPythonPackage rec {
   #    "-Wno-error=deprecated-declarations"
   #  ];
 
-  lib.versionAtLeast python.pythonVersion "3.15" -> doCheck = false;
+  doCheck = if lib.versionAtLeast python.pythonVersion "3.15" then false else true;
 
   optional-dependencies = {
     dmypy = [ psutil ];
