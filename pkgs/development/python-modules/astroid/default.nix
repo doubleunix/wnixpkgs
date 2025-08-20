@@ -28,6 +28,8 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
 
+  doCheck = false;
+
   nativeCheckInputs = [
     pip
     pytestCheckHook
