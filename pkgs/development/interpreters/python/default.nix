@@ -110,6 +110,7 @@
       inherit passthruFun;
     };
 
+    /*
     python315 = (callPackage ./cpython {
       self = __splicedPackages.python315;
       sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
@@ -126,6 +127,35 @@
         #passthru.doc.src = src;
       }
     );
+    */
+
+    python315 =
+      (callPackage ./cpython {
+        self = __splicedPackages.python315;
+        sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
+        # this 'hash' is only used if ./cpython constructs a fetchurl tarball;
+        # it’s ignored once we override src below
+        hash = lib.fakeHash or "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
+        inherit passthruFun;
+      }).overrideAttrs (old: let
+        src315 = fetchFromGitHub {
+          owner = "python";
+          repo  = "cpython";
+          rev   = "7fda8b66debb24e0520b94c3769b648c7305f84e";
+          hash  = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
+        };
+        oldPT = old.passthru or {};
+        newDoc =
+          if oldPT ? doc
+          then oldPT.doc.overrideAttrs (_: { src = src315; })
+          else null;
+      in {
+        # interpreter source -> GitHub
+        src = src315;
+
+        # keep all existing passthru (incl. withPackages), but replace doc if present
+        passthru = oldPT // (if oldPT ? doc then { doc = newDoc; } else {});
+      });
 
     # Minimal versions of Python (built without optional dependencies)
     python3Minimal =
