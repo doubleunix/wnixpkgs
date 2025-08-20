@@ -66,8 +66,6 @@ buildPythonPackage rec {
 
   build-system = [ flit-core ];
 
-  doCheck = lib.versionOlder python.pythonVersion "3.15";
-
   dependencies = [
     alabaster
     babel
@@ -152,7 +150,16 @@ buildPythonPackage rec {
     "test_isattributedescriptor"
     "test_methoddescriptor"
     "test_partialfunction"
+  ]
+  ++ lib.optionals (lib.versionAtLeast python.pythonVersion "3.15") [
+    # disable the failing tests on 3.15
+    "test_autodoc_special_members"
+    "test_autosummary_generate_content_for_module_imported_members"
+    "test_is_invalid_builtin_class"
   ];
+
+  # disable all tests on 3.15
+  # doCheck = lib.versionOlder python.pythonVersion "3.15";
 
   passthru.tests = {
     inherit breathe;
