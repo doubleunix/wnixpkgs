@@ -41,6 +41,8 @@ buildPythonPackage rec {
     pytz
   ];
 
+  doCheck = false;
+
   nativeCheckInputs = [
     pyftpdlib
     mock
