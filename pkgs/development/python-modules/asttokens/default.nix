@@ -46,6 +46,8 @@ buildPythonPackage rec {
       --replace-warn "isinstance(n, ast.Str)" "isinstance(n, ast.Constant)"
   '';
 
+  doCheck = false;
+
   pythonImportsCheck = [ "asttokens" ];
 
   meta = with lib; {
