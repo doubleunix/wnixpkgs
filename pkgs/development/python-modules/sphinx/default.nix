@@ -5,6 +5,7 @@
   pythonOlder,
   fetchFromGitHub,
   isPyPy,
+  python,
 
   # build-system
   flit-core,
@@ -64,6 +65,8 @@ buildPythonPackage rec {
   };
 
   build-system = [ flit-core ];
+
+  doCheck = lib.versionOlder python.pythonVersion "3.15";
 
   dependencies = [
     alabaster
