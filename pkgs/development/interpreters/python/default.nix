@@ -102,8 +102,7 @@
     python315 = (callPackage ./cpython {
       self = __splicedPackages.python315;
       sourceVersion = { major="3"; minor="15"; patch="0"; suffix="a0"; };
-      pythonVersion = "3.15";
-      hash = lib.fakeHash;
+      hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
       inherit passthruFun;
       }).overrideAttrs (old: rec {
         src = fetchFromGitHub {
@@ -113,8 +112,9 @@
           hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
         };
         passthru.doc.src = src;
-        # version = "3.15.0a0-wnix";
-      });
+        #version = "3.15.0a0";
+        #pythonVersion = "3.15";
+      } // old);
 
     # Minimal versions of Python (built without optional dependencies)
     python3Minimal =
