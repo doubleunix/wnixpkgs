@@ -20,6 +20,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
+
+  postPatch = ''
+    cp parso/python/grammar314.txt parso/python/grammar315.txt
+  '';
+
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
     # python changed exception message format in 3.10, 3.10 not yet supported
     "test_python_exception_matches"
