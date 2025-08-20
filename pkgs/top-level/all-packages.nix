@@ -6434,7 +6434,7 @@ with pkgs;
   };
   python314FreeThreading = python314.override {
     self = python314FreeThreading;
-    pythonAttr = "python313FreeThreading";
+    pythonAttr = "python314FreeThreading";
     enableGIL = false;
   };
   python315FreeThreading = python315.override {
