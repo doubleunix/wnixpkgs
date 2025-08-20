@@ -26,6 +26,17 @@
         };
         hash = "sha256-k+WD8kNFTm6eRYjKLCZiIGrZYWWYYyd6/NuWgBZH1kA=";
       };
+
+      python315 = {
+        sourceVersion = {
+          major = "3";
+          minor = "15";
+          patch = "0";
+          suffix = "a0";
+        };
+        pythonVersion = "3.15";
+        hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
+      };
     };
 
   in
@@ -111,10 +122,10 @@
           rev = "7fda8b66debb24e0520b94c3769b648c7305f84e";
           hash = "sha256-lNrDERJPfoo/a5629/fS0RbBYdh3CtXrbA0rFKw+eAQ=";
         };
-        passthru.doc.src = src;
-        #version = "3.15.0a0";
-        #pythonVersion = "3.15";
-      } // old);
+        passthru = old.passthru;
+        #passthru.doc.src = src;
+      }
+    );
 
     # Minimal versions of Python (built without optional dependencies)
     python3Minimal =
