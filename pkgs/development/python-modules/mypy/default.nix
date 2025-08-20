@@ -84,10 +84,10 @@ buildPythonPackage rec {
   # version is also the default in the wheels on Pypi that include binaries.
   # is64bit: unfortunately the build would exhaust all possible memory on i686-linux.
   # env.MYPY_USE_MYPYC = stdenv.buildPlatform.is64bit;
-  env.MYPY_USE_MYPYC = 0;
+  env.MYPY_USE_MYPYC = "0";
 
   # when testing reduce optimisation level to reduce build time by 20%
-  env.MYPYC_OPT_LEVEL = 1;
+  env.MYPYC_OPT_LEVEL = "1";
 
   pythonImportsCheck = [
     "mypy"

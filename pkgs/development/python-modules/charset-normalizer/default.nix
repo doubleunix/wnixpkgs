@@ -33,6 +33,10 @@ buildPythonPackage rec {
 
   env.CHARSET_NORMALIZER_USE_MYPYC = "1";
 
+  NIX_CFLAGS_COMPILE = lib.optionals (lib.versionAtLeast python.pythonVersion "3.15") [
+    "-Wno-error=deprecated-declarations"
+  ];
+
   nativeCheckInputs = [ pytestCheckHook ];
 
   pythonImportsCheck = [ "charset_normalizer" ];
