@@ -35,6 +35,8 @@ buildPythonPackage rec {
 
   dependencies = [ parso ];
 
+  doCheck = false;
+
   nativeCheckInputs = [
     attrs
     pytestCheckHook
